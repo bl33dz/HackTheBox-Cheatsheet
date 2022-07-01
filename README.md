@@ -1,5 +1,5 @@
 ## **HackTheBox Cheatsheet**
-![HackThebox](https://www.hackthebox.com/images/htb_socialmedia_cover.png =600x320)
+My personal HackTheBox Cheatsheet from any sources.
 ### Table of Contents
 - Enumeration
   - [Nmap](#nmap)
