@@ -1,12 +1,14 @@
 ## **HackTheBox Cheatsheet**
 - Enumeration
-  - nmap
+  - Nmap
   - dig
+  - dnsrecon
   - ffuf
   - dirb
   - gobuster
+  - dirsearch
   - sqlmap
-  - wpscan
+  - WPScan
   - nikto
   - metasploit (auxiliary)
   - enum4linux
@@ -15,6 +17,11 @@
   - LinPEAS
   - WinPEAS
   - pspy
+- Brute-force (Cracking)
+  - JohnTheRipper
+  - hashcat
+  - Hydra
+  - patator
 - Reverse Shell
   - revshell.com
   - Python
@@ -31,3 +38,9 @@
   - powershell
   - powershell (Invoke-WebRequest)
   - certutil
+- Port Forwarding
+  - ssh
+  - chisel
+  - shootback (python)
+  - gost
+  - goproxy
