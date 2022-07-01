@@ -1,5 +1,5 @@
 ## **HackTheBox Cheatsheet**
-![HackThebox](https://www.hackthebox.com/images/htb_socialmedia_cover.png =600x)
+![HackThebox](https://www.hackthebox.com/images/htb_socialmedia_cover.png =600x320)
 ### Table of Contents
 - Enumeration
   - [Nmap](#nmap)
