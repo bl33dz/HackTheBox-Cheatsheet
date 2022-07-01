@@ -12,7 +12,7 @@
   - [sqlmap](#sqlmap)
   - [WPScan](#wpscan)
   - [Nikto](#nikto)
-  - Metasploit (auxiliary)
+  - [Metasploit (Auxiliary)](#metasploit-auxiliary)
   - enum4linux
   - ldapsearch
   - smbclient
@@ -130,9 +130,31 @@ Source: https://github.com/wpscanteam/wpscan
 ```
 wpscan --url http://<IP/DOMAIN>/ # default scan (more info: wpscan -h/-hh)
 ```
-### Nikto
+#### Nikto
 Nikto is a pluggable web server and CGI scanner written in Perl, using rfp’s LibWhisker to perform fast security or informational checks.\
 Source: https://github.com/sullo/nikto
 ```
 nikto -host http://<IP/DOMAIN>/
 ```
+#### Metasploit Auxiliary
+The Metasploit Framework includes hundreds of auxiliary modules that perform scanning, fuzzing, sniffing, and much more. Although these modules will not give you a shell, they are extremely valuable when conducting a penetration test.\
+Source: https://www.offensive-security.com/metasploit-unleashed/auxiliary-module-reference/
+```
+# Example Usage
+msf > use auxiliary/scanner/smb/smb_version
+msf auxiliary(smb_version) > show options
+Module options:
+
+   Name       Current Setting  Required  Description
+   ----       ---------------  --------  -----------
+   RHOSTS                      yes       The target address range or CIDR identifier
+   SMBDomain  WORKGROUP        no        The Windows domain to use for authentication
+   SMBPass                     no        The password for the specified username
+   SMBUser                     no        The username to authenticate as
+   THREADS    1                yes       The number of concurrent threads
+
+msf auxiliary(smb_version) > set RHOSTS <IP/IPs>
+RHOSTS => <IP/IPs>
+msf auxiliary(smb_version) > run
+```
+####
