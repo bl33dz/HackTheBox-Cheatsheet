@@ -1,5 +1,4 @@
 ## **HackTheBox Cheatsheet**
----
 - Enumeration
   - nmap
   - dig
