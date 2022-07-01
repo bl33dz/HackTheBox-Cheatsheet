@@ -1,4 +1,5 @@
 ## **HackTheBox Cheatsheet**
+![HackThebox](https://www.hackthebox.com/images/htb_socialmedia_cover.png)
 ### Table of Contents
 - Enumeration
   - [Nmap](#nmap)
@@ -13,12 +14,10 @@
   - [WPScan](#wpscan)
   - [Nikto](#nikto)
   - [Metasploit (Auxiliary)](#metasploit-auxiliary)
-  - enum4linux
-  - ldapsearch
-  - smbclient
-  - LinPEAS
-  - WinPEAS
-  - pspy
+  - [Enum4Linux](#enum4linux)
+  - [LinPEAS](#linpeas)
+  - [WinPEAS](#winpeas)
+  - [pspy](#pspy)
 - Brute-force (Cracking)
   - JohnTheRipper
   - hashcat
@@ -31,14 +30,14 @@
   - netcat
   - bash
   - socat
-  - metasploit (payload)
+  - Metasploit (Payload)
 - File Transfer
   - wget
   - curl
   - netcat
   - openssl
-  - powershell
-  - powershell (Invoke-WebRequest)
+  - PowerShell
+  - PowerShell (Invoke-WebRequest)
   - certutil
 - Port Forwarding
   - ssh
@@ -157,4 +156,27 @@ msf auxiliary(smb_version) > set RHOSTS <IP/IPs>
 RHOSTS => <IP/IPs>
 msf auxiliary(smb_version) > run
 ```
-####
+#### Enum4Linux
+A Linux alternative to enum.exe for enumerating data from Windows and Samba hosts.\
+Source: https://github.com/CiscoCXSecurity/enum4linux
+```
+enum4linux <IP/DOMAIN>
+```
+#### LinPEAS
+LinPEAS is a script that search for possible paths to escalate privileges on Linux/Unix*/MacOS hosts.\
+Source: https://github.com/carlospolop/PEASS-ng/tree/master/linPEAS
+```
+remote:~$ ./linpeas.sh
+```
+#### WinPEAS
+Check the Local Windows Privilege Escalation.\
+Source: https://github.com/carlospolop/PEASS-ng/tree/master/winPEAS
+```
+C:\Windows\Temp> .\winpeas.exe
+```
+#### pspy
+pspy is a command line tool designed to snoop on processes without need for root permissions.\
+Source: https://github.com/DominicBreuker/pspy
+```
+remote:~$ ./pspy64
+```
