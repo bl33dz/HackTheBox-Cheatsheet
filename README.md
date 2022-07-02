@@ -19,18 +19,19 @@ My personal HackTheBox Cheatsheet from any sources.
   - [WinPEAS](#winpeas)
   - [pspy](#pspy)
 - Brute-force (Cracking)
-  - JohnTheRipper
-  - hashcat
-  - Hydra
-  - patator
+  - [JohnTheRipper](#johntheripper)
+  - [hashcat](#hashcat)
+  - [Hydra](#hydra)
+  - [Patator](#patator)
 - Reverse Shell
-  - revshell.com
+  - [revshell.com](https://www.revshell.com/)
   - Python
   - PHP
   - netcat
   - bash
   - socat
   - Metasploit (Payload)
+  - ysoserial.exe (Windows)
 - File Transfer
   - wget
   - curl
@@ -42,7 +43,7 @@ My personal HackTheBox Cheatsheet from any sources.
 - Port Forwarding
   - ssh
   - chisel
-  - shootback (python)
+  - shootback
   - gost
   - goproxy
 ### Contents
@@ -179,4 +180,32 @@ pspy is a command line tool designed to snoop on processes without need for root
 Source: https://github.com/DominicBreuker/pspy
 ```
 remote:~$ ./pspy64
+```
+#### JohnTheRipper
+John the Ripper is an Open Source password security auditing and password recovery tool available for many operating systems.\
+Source: https://www.openwall.com/john/
+```
+john --wordlist=<WORDLIST> <FILE>                       # default
+john --format=<HASHFORMAT> --wordlist=<WORDLIST> <FILE> # define hash type
+john --show <FILE>                                      # show cracked hash
+```
+#### hashcat
+Hashcat supports five unique modes of attack for over 300 highly-optimized hashing algorithms. hashcat currently supports CPUs, GPUs, and other hardware accelerators on Linux, and has facilities to help enable distributed password cracking.\
+Source: https://hashcat.net/hashcat/
+```
+hashcat <FILE> <WORDLIST>
+```
+#### Hydra
+Hydra is a parallelized login cracker which supports numerous protocols to attack. It is very fast and flexible, and new modules are easy to add.\
+Source: https://github.com/vanhauser-thc/thc-hydra
+```
+hydra -L <USERLIST> -P <PASSLIST> ssh://<IP/DOMAIN> # brute-force ssh
+hydra -l <USER> -P <PASSLIST> ssh://<IP/DOMAIN>     # brute-force ssh known username
+# more information hydra -h
+```
+#### Patator
+Patator is a multi-purpose brute-forcer, with a modular design and a flexible usage.\
+```
+patator ftp_login user=<USER> password=FILE0 0=<WORDLIST> host=<IP/DOMAIN> -x ignore:mesg='Login incorrect.'              # brute-force ftp
+patator mysql_login user=<username> password=FILE0 0=<WORDLIST> host=<IP/DOMAIN> -x ignore:fgrep='Access denied for user' # brute-force mysql
 ```
