@@ -205,6 +205,7 @@ hydra -l <USER> -P <PASSLIST> ssh://<IP/DOMAIN>     # brute-force ssh known user
 ```
 #### Patator
 Patator is a multi-purpose brute-forcer, with a modular design and a flexible usage.\
+Source: https://github.com/lanjelot/patator
 ```
 patator ftp_login user=<USER> password=FILE0 0=<WORDLIST> host=<IP/DOMAIN> -x ignore:mesg='Login incorrect.'              # brute-force ftp
 patator mysql_login user=<username> password=FILE0 0=<WORDLIST> host=<IP/DOMAIN> -x ignore:fgrep='Access denied for user' # brute-force mysql
