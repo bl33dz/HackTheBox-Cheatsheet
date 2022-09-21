@@ -1,5 +1,8 @@
 # **HackTheBox Cheatsheet**
-![HTB](images/htb.png)\
+<p align="center">
+  <img src="images/htb.png"/>
+</p>
+
 HackTheBox Cheatsheet from any sources. Feel free to contribute.
 ## Table of Contents
 - [Enumeration](#enumeration)
