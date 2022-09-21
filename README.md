@@ -1,5 +1,7 @@
 # **HackTheBox Cheatsheet**
-My personal HackTheBox Cheatsheet from any sources.
+![HTB](images/htb.png)\
+\
+HackTheBox Cheatsheet from any sources. Feel free to contribute.
 ## Table of Contents
 - [Enumeration](#enumeration)
   - [Nmap](#nmap)
